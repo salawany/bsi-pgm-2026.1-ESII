@@ -11,9 +11,13 @@ Não é necessário usar termos técnicos neste momento.
 *(Espaço reservado para o estudante preencher)*
 
 1- O sistema aceita qualquer valor sem conferir se está certo.
+
 2- O código está meio bagunçado e difícil de entender.
+
 3- Se o usuário errar algo, o sistema não sabe lidar com isso.
+
 4- Tem partes do código que poderiam ser melhor aproveitadas.
+
 5- Não tem nenhum teste para ver se está funcionando direito.
 
 ## Revisão com vocabulário técnico
