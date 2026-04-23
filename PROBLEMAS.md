@@ -10,13 +10,11 @@ Não é necessário usar termos técnicos neste momento.
 
 *(Espaço reservado para o estudante preencher)*
 
-Exemplo de entradas:
-- "A classe faz muita coisa ao mesmo tempo"
-- "Tem código de e-mail misturado com o cálculo de multa"
-- "O mesmo cálculo aparece duas vezes no código"
-- "As listas de equipamentos estão fora da classe, soltas no arquivo"
-
----
+1- O sistema aceita qualquer valor sem conferir se está certo.
+2- O código está meio bagunçado e difícil de entender.
+3- Se o usuário errar algo, o sistema não sabe lidar com isso.
+4- Tem partes do código que poderiam ser melhor aproveitadas.
+5- Não tem nenhum teste para ver se está funcionando direito.
 
 ## Revisão com vocabulário técnico
 
