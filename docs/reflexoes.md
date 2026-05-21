@@ -27,28 +27,11 @@ comunicação, conectados apenas pela chamada
 
 ## Aula 05 — OCP
 
-A hierarquia criada — `Notebook`, `Projetor` e `Cabo` herdando de
-`Equipamento` — resolve o problema da variação por tipo: cada subclasse
-fornece sua fórmula de multa sem que o `ServicoEmprestimo` precise
-conhecer o tipo concreto. Para os equipamentos atuais, isso funciona e
-atende o RNF01 (adição de novo tipo sem alterar o serviço).
+A hierarquia criada aplicou o princípio OCP usando polimorfismo. Cada equipamento passou a calcular sua própria multa, eliminando os blocos if/elif do sistema. Isso deixou o código mais organizado, fácil de manter e aberto para novos tipos de equipamentos sem precisar alterar o serviço principal.
 
-O problema aparece quando o eixo de variação muda. Um equipamento com
-multa calculada por hora, ou cuja política dependa do dia da semana,
-não é uma nova subclasse do mesmo problema — é uma nova dimensão de
-variação. Nesse caso, a hierarquia plana que criei precisaria ser
-reestruturada: ou a lógica condicional voltaria ao `calcular_multa`, ou
-haveria uma proliferação de subclasses como `NotebookFimDeSemana`.
-Valente (Cap. 5) aponta esse risco ao lembrar que "o OCP é mais útil
-quando existe um número limitado e conhecido de variações" — encapsular
-variações hipotéticas viola YAGNI e gera complexidade sem retorno
-imediato.
+Porém, se surgirem regras muito diferentes, como multa por hora ou dependendo do dia da semana, apenas criar subclasses talvez não seja suficiente. Nesse caso, seria necessário reorganizar melhor a lógica do sistema.
 
-Para o cenário das multas por hora ou por dia da semana, uma solução
-mais robusta seria separar a política de cobrança do tipo de
-equipamento, talvez com um objeto `PoliticaMulta` injetado em
-`Equipamento`. Com os tipos atuais — fixos e estáveis — a hierarquia
-presente é suficiente e não exige reestruturação.
+Segundo Valente, no Capítulo 5, o OCP deve ser aplicado com cuidado, pois muitas abstrações podem aumentar a complexidade do código em vez de simplificar.
 
 ## Aula 06 — Verificação de LSP
 
