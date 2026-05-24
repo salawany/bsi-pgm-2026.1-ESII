@@ -52,45 +52,23 @@ presente é suficiente e não exige reestruturação.
 
 ## Aula 06 — Verificação de LSP
 
-O contrato de `Equipamento.calcular_multa(dias_atraso: int) -> float`
-estabelece retorno do tipo `float >= 0.0`, sem lançamento de exceção.
+As subclasses Notebook, Projetor e Cabo respeitam o contrato definido pela classe base Equipamento.
 
-**`Notebook`:** `calcular_multa(0)` → `max(0.0, 0 * 10.0)` = `0.0` ✓;
-`calcular_multa(-5)` → `max(0.0, -50.0)` = `0.0` ✓. Nenhuma exceção
-possível. LSP satisfeito.
+Em todos os casos:
+- calcular_multa(0) retorna 0.0;
+- calcular_multa(-5) também retorna 0.0;
+- nenhuma das subclasses lança exceções inesperadas.
 
-**`Projetor`:** `calcular_multa(0)` → `0.0` ✓; `calcular_multa(-5)` →
-`0.0` ✓. LSP satisfeito.
+O contrato da classe base define que o método deve retornar um valor float maior ou igual a zero, sem gerar erros durante a execução. As subclasses mantêm esse comportamento corretamente.
 
-**`Cabo`:** `calcular_multa(0)` → `0.0` ✓; `calcular_multa(-5)` →
-`0.0` ✓. LSP satisfeito.
-
-As três subclasses honram o contrato. O `ServicoEmprestimo` pode
-receber qualquer `Equipamento` e chamar `calcular_multa` com qualquer
-inteiro sem risco de exceção ou valor negativo.
+Dessa forma, o princípio LSP (Liskov Substitution Principle) é satisfeito, pois qualquer subclasse pode substituir a classe Equipamento sem quebrar o funcionamento do ServicoEmprestimo.
 
 ## Aula 06 — DIP
 
-Antes da alteração, o `ServicoEmprestimo` criava internamente seu
-repositório e seu notificador. Isso significa que ele não apenas
-*usava* essas dependências — ele *decidia qual* usar. A dependência
-era unidirecional e apontava para baixo: a camada de serviço
-controlava quem a implementava.
+Antes da aplicação do DIP, o ServicoEmprestimo criava diretamente suas dependências internas, como o repositório e o notificador. Isso fazia com que o módulo ficasse fortemente acoplado às implementações concretas, dificultando testes e alterações futuras.
 
-Com a injeção, essa relação se inverte. O `ServicoEmprestimo` agora
-descreve o que precisa (um objeto com `buscar_equipamento`,
-`salvar_emprestimo` etc.; outro com `notificar_*`) sem determinar quem
-vai fornecê-lo. Quem instancia e injeta passa a ser o `main.py`.
-Valente (Cap. 5) descreve exatamente esse movimento: módulos de alto
-nível não devem depender de módulos de baixo nível; ambos devem
-depender de abstrações.
+Com a inversão de dependência, o serviço passou a apenas receber essas dependências pelo construtor. Dessa forma, ele deixou de controlar a criação dos objetos e passou a consumir recursos fornecidos externamente. Essa mudança não é apenas técnica, mas também conceitual, pois o módulo principal deixa de depender diretamente de detalhes de implementação.
 
-A mudança não é só técnica. Conceitualmente, o `ServicoEmprestimo`
-deixou de ser criador de infraestrutura e se tornou consumidor de
-contratos. Quem decide agora é a camada mais externa — `main.py` —
-que escolhe qual repositório e qual notificador fornecer. Na prática,
-isso abre espaço para instanciar o serviço com um `RepositorioFalso`
-que armazena dados em listas e um `NotificadorFalso` que registra
-chamadas em vez de enviar e-mails. As regras de negócio ficam isoladas
-da infraestrutura, que era exatamente o que o RNF02 exigia e que a
-Aula 5 ainda não resolvia por completo.
+Segundo Valente, no Capítulo 5 de Engenharia de Software Moderna, o DIP estabelece que módulos de alto nível não devem depender de módulos de baixo nível, mas sim de abstrações. Na prática, isso reduz acoplamento e aumenta flexibilidade no sistema.
+
+Além disso, a aplicação do DIP permitiu criar versões falsas do repositório e do notificador para testes isolados, sem necessidade de acessar componentes reais. Isso melhora a testabilidade e facilita a manutenção do código.o.
