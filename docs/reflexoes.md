@@ -52,23 +52,20 @@ presente é suficiente e não exige reestruturação.
 
 ## Aula 06 — Verificação de LSP
 
-As subclasses Notebook, Projetor e Cabo respeitam o contrato definido pela classe base Equipamento.
+Ao revisar as subclasses Notebook, Projetor e Cabo, foi possível perceber que todas seguem o comportamento esperado pela classe base Equipamento. Nos testes feitos, calcular_multa(0) retornou 0.0 e calcular_multa(-5) também não gerou valores negativos nem erros inesperados.
 
-Em todos os casos:
-- calcular_multa(0) retorna 0.0;
-- calcular_multa(-5) também retorna 0.0;
-- nenhuma das subclasses lança exceções inesperadas.
+Cada subclasse implementa o cálculo de multa de forma diferente, mas todas mantêm o contrato definido na superclasse: retornar um valor do tipo float maior ou igual a zero. Nenhuma delas lança exceções durante o uso normal do sistema.
 
-O contrato da classe base define que o método deve retornar um valor float maior ou igual a zero, sem gerar erros durante a execução. As subclasses mantêm esse comportamento corretamente.
+Isso é importante porque o ServicoEmprestimo utiliza os equipamentos sem precisar saber qual tipo específico está sendo usado. O serviço apenas chama calcular_multa(), confiando que qualquer subclasse vai responder corretamente.
 
-Dessa forma, o princípio LSP (Liskov Substitution Principle) é satisfeito, pois qualquer subclasse pode substituir a classe Equipamento sem quebrar o funcionamento do ServicoEmprestimo.
+Dessa forma, o princípio LSP é respeitado, já que Notebook, Projetor e Cabo podem substituir Equipamento sem alterar o funcionamento do sistema ou causar comportamentos inesperados.
 
 ## Aula 06 — DIP
 
-Antes da aplicação do DIP, o ServicoEmprestimo criava diretamente suas dependências internas, como o repositório e o notificador. Isso fazia com que o módulo ficasse fortemente acoplado às implementações concretas, dificultando testes e alterações futuras.
+Antes da aplicação do DIP, o ServicoEmprestimo criava diretamente o RepositorioEmprestimo e o Notificador dentro do construtor. Isso fazia com que o serviço ficasse preso a essas implementações específicas, aumentando o acoplamento entre os módulos.
 
-Com a inversão de dependência, o serviço passou a apenas receber essas dependências pelo construtor. Dessa forma, ele deixou de controlar a criação dos objetos e passou a consumir recursos fornecidos externamente. Essa mudança não é apenas técnica, mas também conceitual, pois o módulo principal deixa de depender diretamente de detalhes de implementação.
+Depois da alteração, o serviço passou a receber essas dependências pelo construtor. Na prática, isso mudou a forma como os módulos se relacionam, porque agora o ServicoEmprestimo não controla mais a criação dos objetos que utiliza. Essa responsabilidade passou para o main.py, que instancia e entrega as dependências prontas.
 
-Segundo Valente, no Capítulo 5 de Engenharia de Software Moderna, o DIP estabelece que módulos de alto nível não devem depender de módulos de baixo nível, mas sim de abstrações. Na prática, isso reduz acoplamento e aumenta flexibilidade no sistema.
+A mudança não foi apenas técnica, relacionada aos parâmetros do construtor, mas também conceitual. Antes, o módulo principal dependia diretamente de implementações concretas. Agora, ele atua mais como consumidor das dependências, tornando o código mais flexível e fácil de modificar.
 
-Além disso, a aplicação do DIP permitiu criar versões falsas do repositório e do notificador para testes isolados, sem necessidade de acessar componentes reais. Isso melhora a testabilidade e facilita a manutenção do código.o.
+Segundo Valente, no Capítulo 5 de Engenharia de Software Moderna, a inversão de dependência busca reduzir o acoplamento entre módulos de alto e baixo nível. Isso também facilita testes isolados, já que agora seria possível utilizar versões falsas do repositório e do notificador sem alterar o funcionamento do serviço.
