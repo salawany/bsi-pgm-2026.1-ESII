@@ -1,5 +1,9 @@
 # ADR-001: Escolha da Arquitetura do Sistema
 
+**Status:** Accepted
+
+**Data:** 2026-04-22
+
 ## Contexto
 
 O sistema de empréstimo de equipamentos (v1.0) concentra toda a lógica em um único arquivo (`emprestimos.py`). Os requisitos não funcionais do `requisitos.md` exigem:
