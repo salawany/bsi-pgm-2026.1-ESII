@@ -94,3 +94,9 @@ que armazena dados em listas e um `NotificadorFalso` que registra
 chamadas em vez de enviar e-mails. As regras de negócio ficam isoladas
 da infraestrutura, que era exatamente o que o RNF02 exigia e que a
 Aula 5 ainda não resolvia por completo.
+
+## Aula 08 — Testes e Integração
+
+Nesta atividade percebi como a aplicação do DIP facilitou a criação de testes. Como o ServicoEmprestimo depende de abstrações, foi possível testar o comportamento do sistema sem alterar a lógica principal. A criação das interfaces tornou o código mais desacoplado e preparado para evolução.
+
+Também foi interessante utilizar o pytest para automatizar a validação das regras de negócio. Os testes permitiram verificar rapidamente se alterações no código afetavam funcionalidades já implementadas. O teste de integração ajudou a validar o fluxo completo de empréstimo e devolução, simulando um cenário próximo ao uso real da aplicação.
