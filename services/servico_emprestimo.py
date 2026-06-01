@@ -1,9 +1,15 @@
 import datetime
 from models.emprestimo import Emprestimo
+from repositories.interfaces import IRepositorioEmprestimo
+from services.interfaces import INotificador
 
 
 class ServicoEmprestimo:
-    def __init__(self, repositorio, notificador):
+    def __init__(
+        self,
+        repositorio: IRepositorioEmprestimo,
+        notificador: INotificador
+    ):
         self.repositorio = repositorio
         self.notificador = notificador
 
