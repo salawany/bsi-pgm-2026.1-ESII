@@ -1,13 +1,21 @@
-# Diagramas de Sequência — v2.0
+# Diagramas — v2.0
 
-> Este arquivo é a **solução-guia das Partes 2 e 3 da Atividade 4a**: traz os 3 diagramas
-> de sequência prontos (UC01 já estava no `comando.md`; UC02 e UC03 aqui como referência
-> opcional para você comparar depois) e as **assinaturas dos métodos** que viram os stubs.
->
-> Para a **Parte 1 da Atividade 4a (decomposição em camadas com justificativa)**,
-> consulte a Q2(c) da resenha modelo (`solucao/docs/resenha-aula03.md`).
+## Decomposição em camadas
 
-## UC01 — Registrar Empréstimo
+A arquitetura em camadas decidida no ADR-001 distribui o sistema em quatro módulos, cada um com uma responsabilidade distinta:
+
+| Camada | Módulo | Responsabilidade | Justificativa |
+|--------|--------|-----------------|---------------|
+| **Apresentação** | `main.py` | Interface CLI: menu, leitura de entrada, exibição de resultados | Isola a interação com o usuário — trocar CLI por web ou batch exige mudar apenas este módulo |
+| **Serviço** | `services/servico_emprestimo.py` | Orquestração das regras de negócio: registrar, devolver, listar atrasados | Concentra a lógica de negócio em um único lugar — nenhuma regra mora na interface nem na persistência |
+| **Serviço** | `services/notificador.py` | Envio de notificações (e-mail, console) | Separado do serviço principal porque muda por motivo diferente (canal de comunicação vs. regra de negócio) — SRP |
+| **Persistência** | `repositories/repositorio_emprestimo.py` | Armazenamento e recuperação de equipamentos e empréstimos | Encapsula o mecanismo de persistência — trocar memória por banco exige mudar apenas este módulo |
+| **Modelos** | `models/equipamento.py` | Entidade de domínio: dados do equipamento | Classe de dados pura, sem dependência de infraestrutura — usada por todas as camadas acima |
+| **Modelos** | `models/emprestimo.py` | Entidade de domínio: dados do empréstimo | Idem — representa o registro de empréstimo com tipagem explícita via dataclass |
+
+## Diagramas de sequência
+
+### UC01 — Registrar Empréstimo
 
 ```mermaid
 sequenceDiagram
@@ -33,7 +41,7 @@ sequenceDiagram
     end
 ```
 
-## UC02 — Registrar Devolução
+### UC02 — Registrar Devolução
 
 ```mermaid
 sequenceDiagram
@@ -60,7 +68,7 @@ sequenceDiagram
     end
 ```
 
-## UC03 — Listar Empréstimos em Atraso
+### UC03 — Listar Empréstimos em Atraso
 
 ```mermaid
 sequenceDiagram
