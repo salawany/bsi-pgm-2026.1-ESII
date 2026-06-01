@@ -1,3 +1,8 @@
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 import pytest  # type: ignore
 
 from repositories.repositorio_emprestimo import RepositorioEmprestimo
