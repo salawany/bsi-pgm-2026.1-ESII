@@ -100,3 +100,9 @@ Aula 5 ainda não resolvia por completo.
 Nesta atividade percebi como a aplicação do DIP facilitou a criação de testes. Como o ServicoEmprestimo depende de abstrações, foi possível testar o comportamento do sistema sem alterar a lógica principal. A criação das interfaces tornou o código mais desacoplado e preparado para evolução.
 
 Também foi interessante utilizar o pytest para automatizar a validação das regras de negócio. Os testes permitiram verificar rapidamente se alterações no código afetavam funcionalidades já implementadas. O teste de integração ajudou a validar o fluxo completo de empréstimo e devolução, simulando um cenário próximo ao uso real da aplicação.
+
+## Aula 09 — TDD
+
+Comparando o teste TDD com o cenário BDD, acho que o BDD comunica melhor com um cliente não técnico, porque usa uma linguagem mais próxima do dia a dia. No cenário “Dado-Quando-Então”, dá para entender a regra sem precisar saber Python, assert ou estrutura de teste. Por exemplo, dizer que o usuário devolveu antes do prazo e recebeu desconto é mais claro para alguém que só quer validar a regra de negócio.
+
+Já o TDD é melhor para quem está programando, porque mostra exatamente o que o código precisa retornar e ajuda a encontrar erro rápido quando algo quebra. Eu usaria BDD para conversar com cliente, professor ou colega que quer entender o comportamento esperado. Usaria TDD durante a implementação, porque ele guia o código em pequenos passos e deixa mais seguro mudar depois.
