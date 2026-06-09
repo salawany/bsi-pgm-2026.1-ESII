@@ -7,3 +7,10 @@ def test_multa_zero_quando_sem_atraso():
         valor_por_dia=10.0,
         carencia=2
     ) == 0.0
+
+def test_cobra_apenas_dias_apos_carencia():
+    assert calcular_multa_com_carencia(
+        dias_atraso=5,
+        valor_por_dia=10.0,
+        carencia=2
+    ) == 30.0

@@ -3,4 +3,5 @@ def calcular_multa_com_carencia(
     valor_por_dia,
     carencia
 ):
-    return 0.0
+    dias_cobrados = max(0, dias_atraso - carencia)
+    return dias_cobrados * valor_por_dia
