@@ -3,4 +3,5 @@ def calcular_desconto_devolucao_antecipada(
     data_devolucao,
     valor_por_dia
 ):
-    return 0.0
+    dias_adiantados = (data_prevista - data_devolucao).days
+    return dias_adiantados * valor_por_dia
