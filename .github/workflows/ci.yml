@@ -6,6 +6,7 @@ on:
       - main
       - aula-08
       - aula-09
+      - aula-10
 
   pull_request:
     branches:
