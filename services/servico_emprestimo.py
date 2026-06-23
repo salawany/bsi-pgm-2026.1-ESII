@@ -50,7 +50,9 @@ class ServicoEmprestimo(Subject):
 
         hoje = datetime.date.today()
         atraso = (hoje - emprestimo.data_devolucao).days
-        equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
+        equipamento = self.repositorio.buscar_equipamento(
+            emprestimo.equipamento_id
+        )
         multa = equipamento.calcular_multa(atraso)
 
         self.repositorio.marcar_devolvido(emprestimo_id)
@@ -64,6 +66,14 @@ class ServicoEmprestimo(Subject):
 
         print(f"Devolução registrada. Multa: R${multa:.2f}")
 
+    def _imprimir_atraso(
+        self,
+        nome_usuario: str,
+        dias_atraso: int,
+        multa: float
+    ) -> None:
+        print(f"{nome_usuario} — {dias_atraso} dias — R${multa:.2f}")
+
     def listar_atrasados(self) -> None:
         hoje = datetime.date.today()
         atrasados = self.repositorio.listar_em_atraso()
@@ -74,10 +84,16 @@ class ServicoEmprestimo(Subject):
 
         for emprestimo in atrasados:
             dias_atraso = (hoje - emprestimo.data_devolucao).days
-            equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
+            equipamento = self.repositorio.buscar_equipamento(
+                emprestimo.equipamento_id
+            )
             multa = equipamento.calcular_multa(dias_atraso)
 
-            print(f"{emprestimo.usuario_nome} — {dias_atraso} dias — R${multa:.2f}")
+            self._imprimir_atraso(
+                emprestimo.usuario_nome,
+                dias_atraso,
+                multa
+            )
 
             self.notificar(Evento(
                 "atraso",
