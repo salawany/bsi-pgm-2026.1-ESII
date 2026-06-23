@@ -1,6 +1,7 @@
 import datetime
 from models.emprestimo import Emprestimo
 from repositories.interfaces import IRepositorioEmprestimo
+from services.evento import Evento
 from services.observer import Subject
 
 
@@ -33,11 +34,11 @@ class ServicoEmprestimo(Subject):
         self.repositorio.salvar_emprestimo(emprestimo)
         self.repositorio.marcar_indisponivel(equipamento_id)
 
-        self.notificar({
-            "tipo": "emprestimo",
-            "email": usuario_email,
-            "data": data_devolucao,
-        })
+        self.notificar(Evento(
+            "emprestimo",
+            usuario_email,
+            data=data_devolucao,
+        ))
 
         return True
 
@@ -55,11 +56,11 @@ class ServicoEmprestimo(Subject):
         self.repositorio.marcar_devolvido(emprestimo_id)
         self.repositorio.marcar_disponivel(emprestimo.equipamento_id)
 
-        self.notificar({
-            "tipo": "devolucao",
-            "email": emprestimo.usuario_email,
-            "multa": multa,
-        })
+        self.notificar(Evento(
+            "devolucao",
+            emprestimo.usuario_email,
+            multa=multa,
+        ))
 
         print(f"Devolução registrada. Multa: R${multa:.2f}")
 
@@ -78,7 +79,7 @@ class ServicoEmprestimo(Subject):
 
             print(f"{emprestimo.usuario_nome} — {atraso} dias — R${multa:.2f}")
 
-            self.notificar({
-                "tipo": "atraso",
-                "email": emprestimo.usuario_email,
-            })
+            self.notificar(Evento(
+                "atraso",
+                emprestimo.usuario_email,
+            ))

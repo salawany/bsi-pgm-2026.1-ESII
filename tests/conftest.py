@@ -6,6 +6,7 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 import pytest  # type: ignore
 
 from repositories.repositorio_emprestimo import RepositorioEmprestimo
+from services.evento import Evento
 from services.observer import Observer
 from services.servico_emprestimo import ServicoEmprestimo
 
@@ -14,7 +15,7 @@ class NotificadorSpy(Observer):
     def __init__(self):
         self.eventos = []
 
-    def update(self, evento: dict) -> None:
+    def update(self, evento: Evento) -> None:
         self.eventos.append(evento)
 
 
