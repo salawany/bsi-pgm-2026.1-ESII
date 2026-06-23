@@ -73,11 +73,11 @@ class ServicoEmprestimo(Subject):
             return
 
         for emprestimo in atrasados:
-            atraso = (hoje - emprestimo.data_devolucao).days
+            dias_atraso = (hoje - emprestimo.data_devolucao).days
             equipamento = self.repositorio.buscar_equipamento(emprestimo.equipamento_id)
-            multa = equipamento.calcular_multa(atraso)
+            multa = equipamento.calcular_multa(dias_atraso)
 
-            print(f"{emprestimo.usuario_nome} — {atraso} dias — R${multa:.2f}")
+            print(f"{emprestimo.usuario_nome} — {dias_atraso} dias — R${multa:.2f}")
 
             self.notificar(Evento(
                 "atraso",
