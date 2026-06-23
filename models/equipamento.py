@@ -1,31 +1,29 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from models.multa_strategy import MultaStrategy
 
 
 @dataclass
-class Equipamento(ABC):
+class Equipamento:
     id: int
     nome: str
-    tipo: str          # mantido — referenciado por Emprestimo como dado histórico
+    tipo: str
+    multa: MultaStrategy
     disponivel: bool = True
 
-    @abstractmethod
-    def calcular_multa(self, dias_atraso: int) -> float: ...
+    def calcular_multa(self, dias_atraso: int) -> float:
+        return self.multa.calcular(dias_atraso)
 
 
 @dataclass
 class Notebook(Equipamento):
-    def calcular_multa(self, dias_atraso: int) -> float:
-        return max(0.0, dias_atraso * 10.0)
+    pass
 
 
 @dataclass
 class Projetor(Equipamento):
-    def calcular_multa(self, dias_atraso: int) -> float:
-        return max(0.0, dias_atraso * 15.0)
+    pass
 
 
 @dataclass
 class Cabo(Equipamento):
-    def calcular_multa(self, dias_atraso: int) -> float:
-        return max(0.0, dias_atraso * 2.0)
+    pass

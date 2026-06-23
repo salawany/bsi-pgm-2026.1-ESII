@@ -1,8 +1,10 @@
-from models.equipamento import Notebook, Projetor, Cabo
+from models.fabrica_equipamento import FabricaEquipamento
 
 
 def test_multa_notebook_sem_atraso():
-    notebook = Notebook(1, "Notebook Dell", "notebook")
+    notebook = FabricaEquipamento.criar(
+        "notebook", 1, "Notebook Dell"
+    )
 
     multa = notebook.calcular_multa(0)
 
@@ -10,7 +12,9 @@ def test_multa_notebook_sem_atraso():
 
 
 def test_multa_notebook_com_atraso():
-    notebook = Notebook(1, "Notebook Dell", "notebook")
+    notebook = FabricaEquipamento.criar(
+        "notebook", 1, "Notebook Dell"
+    )
 
     multa = notebook.calcular_multa(3)
 
@@ -18,7 +22,9 @@ def test_multa_notebook_com_atraso():
 
 
 def test_multa_projetor_com_atraso():
-    projetor = Projetor(2, "Projetor Epson", "projetor")
+    projetor = FabricaEquipamento.criar(
+        "projetor", 2, "Projetor Epson"
+    )
 
     multa = projetor.calcular_multa(2)
 
@@ -26,7 +32,9 @@ def test_multa_projetor_com_atraso():
 
 
 def test_multa_cabo_com_atraso():
-    cabo = Cabo(3, "Cabo HDMI", "cabo")
+    cabo = FabricaEquipamento.criar(
+        "cabo", 3, "Cabo HDMI"
+    )
 
     multa = cabo.calcular_multa(5)
 
