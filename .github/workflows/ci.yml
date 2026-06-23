@@ -8,6 +8,8 @@ on:
       - aula-09
       - aula-10
       - aula-11
+      - aula-12
+
 
   pull_request:
     branches:
