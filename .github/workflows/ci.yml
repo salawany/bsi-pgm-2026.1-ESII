@@ -2,34 +2,28 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-      - aula-08
-      - aula-09
-      - aula-10
-      - aula-11
-      - aula-12
-
-
   pull_request:
-    branches:
-      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Configurar Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - name: Install dependencies
+      - name: Instalar dependências
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
-      - name: Run tests
-        run: |
-          pytest -v
+      - name: Ruff
+        run: ruff check .
+
+      - name: Testes
+        run: pytest --cov=. --cov-report=term-missing

@@ -1,20 +1,4 @@
-def test_registrar_emprestimo(servico, repositorio):
-    resultado = servico.registrar(
-        1,
-        "Sávila",
-        "savila@email.com",
-        7
-    )
-
-    assert resultado is True
-
-    equipamento = repositorio.buscar_equipamento(1)
-
-    assert equipamento.disponivel is False
-
 import datetime
-
-
 def test_registrar_emprestimo(servico, repositorio):
     resultado = servico.registrar(
         1,
