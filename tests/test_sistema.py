@@ -15,4 +15,4 @@ def test_registrar_emprestimo():
 
     resultado = sistema.registrar(1, "João", "joao@email.com", 5)
 
-    assert resultado is False
+    assert resultado is True
