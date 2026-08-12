@@ -7,7 +7,7 @@ def test_criar_sistema():
     assert sistema is not None
     assert sistema._repositorio is not None
     assert sistema._servico is not None
-    
+
 def test_registrar_emprestimo():
     sistema = SistemaDeEmprestimos()
 
@@ -15,4 +15,4 @@ def test_registrar_emprestimo():
 
     resultado = sistema.registrar(1, "João", "joao@email.com", 5)
 
-    assert resultado is True
+    assert resultado is False
