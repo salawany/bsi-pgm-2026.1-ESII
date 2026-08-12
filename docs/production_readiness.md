@@ -63,3 +63,5 @@ Existe uma dependência importante entre essas ações. A **persistência deve v
 A containerização pode esperar inicialmente. Ela é importante para padronizar o ambiente e facilitar o deployment, mas, considerando o risco atual, a perda de dados e a falta de observabilidade são problemas mais críticos. Depois que essas bases estiverem resolvidas, Docker e um processo de deployment com rollback podem ser implementados com menor risco.
 
 Essa ordem segue a ideia de priorizar os riscos mais relevantes e suas dependências, em vez de tentar implementar todas as melhorias ao mesmo tempo, conforme a abordagem de qualidade e evolução de software discutida por Valente no Capítulo 10.
+
+Essa decisão também considera a relação entre risco, esforço e dependências, priorizando primeiro os problemas que podem comprometer diretamente os dados e a operação do sistema.
